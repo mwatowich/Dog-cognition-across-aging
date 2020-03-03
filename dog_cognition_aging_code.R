@@ -1,28 +1,24 @@
-library(readxl)
-library(dplyr)
+library(tidyverse)
 library(PQLseq)
 library(psych)
 library(EMMREML)
 
-#     Set working directory to load files -----------
-#setwd()
-
-
-
 #     Load data ---------------
+# Download and load the following files from the Github page mwatowich/Dog-cognition-across-aging
 
-# Prep cognitive and demographic data
-dog_scores <- as.data.frame(read_xlsx("ESM_2_dog_cognitive_aging.xlsx", sheet = 9, col_names = T, range = cell_rows(2:12))) %>% 
+# load cognitive and demographic data
+dog_scores <- read_csv(file = "example_data_dog_cognitive_aging.csv", col_names = T, n_max = 10) %>% 
   rename(sex = `sex*`) %>% 
-  rename(reproductive.alteration = `reproductive.alteration†`)
+  rename(reproductive.alteration = `reproductive.alteration†`) %>% 
+  as.data.frame()
 
-# Prep identity by state matrix
-IBS <- as.matrix(read_xlsx("ESM_2_dog_cognitive_aging.xlsx", sheet = 10, col_names = T, range = cell_limits(c(2,2), c(11,10))))
-row.names(IBS) <-colnames(IBS)
-colnames(IBS) <- NULL
+# load identity by decent matrix
+IBD <- read_delim(file = "example_IBDmatrix_dog_cognitive_aging.txt", delim = "\t", col_names = T) %>% 
+  column_to_rownames("X1") %>% 
+  as.matrix()
 
-# Prep Zmatrix
-Zmatrix <- as.matrix(read_xlsx("ESM_2_dog_cognitive_aging.xlsx", sheet = 11, col_names = F, range = cell_limits(c(3,1), c(12,9))))
+# load Zmatrix
+Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv", col_names = T))
 rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
 
@@ -30,7 +26,7 @@ rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 #      Model binomial cognitive abilities with PQLseq package ---------------
 
 # Make Genetic relatedness matrix
-GRM = Zmatrix%*%IBS%*%t(Zmatrix)
+GRM = Zmatrix%*%IBD%*%t(Zmatrix)
 diag(GRM)=1 #set relatedness of the individual to 1
 
 # Success counts
@@ -75,8 +71,8 @@ dog_delay_grat$PC1 <- pca_vals$PC1 # add PCA values to the dataframe
 model.delay.grat <- emmreml(y = dog_delay_grat$PC1, # values of 1st PCA
                         X = mat_coeffs,  # design matrix
                         Z = Zmatrix,  # matrix of random effects
-                        K = IBS,  # relatedness matrix
+                        K = IBD,  # relatedness matrix
                         varbetahat = T, varuhat = T, PEVuhat = T, test = T)
 
 delay.grat.out <- cbind(model.delay.grat$betahat, model.delay.grat$pvalbeta[, "none"])
-colnames(delay.grat.out) <- c("p-values", "beta coefficients")
+colnames(delay.grat.out) <- c("p-values", "betas")
