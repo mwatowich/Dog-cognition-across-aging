@@ -1,3 +1,3 @@
 # Dog-cognition-across-aging
-code for statistical analysis of dog cognition across aging from data from the Dognition project 
+This is code to run the statistical analyses from the manuscript "Age influences domestic dog cognitive performance independent of average breed lifespan."
 
