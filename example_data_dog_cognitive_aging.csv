@@ -1,0 +1,13 @@
+﻿dog.id,weight,age,sex*,reproductive.alteration†,breed,mean.breed.lifespan,eye.contact,arm.pointing,foot.pointing,memory.vs.pointing,memory.vs.smell,inferential.reasoning,physical.reasoning,delayed.memory.60s,delayed.memory.90s,delayed.memory.120s,delayed.memory.150s,delay.gratification.watching(s),delay.gratification.eyes.closed(s),delay.gratification.turn.back(s)
+1,10,10.2,1,1,Shih Tzu,13.4,34,0.33,0.5,0.83,0.5,0.75,0.5,1,0,1,1,50,70,34
+2,50,2.37,0,1,Labrador Retriever,12.6,10,1,0.67,0.17,0.5,0.25,0.5,0,1,0,1,76,85,25
+3,70,2.14,1,0,Golden Retriever,12,89,0.83,0.5,0.5,0.75,0.75,0.5,1,1,1,0,10,40,17
+4,20,1.5,1,1,Dalmatian,13,43,0.5,1,0.5,0.5,0.5,0.75,1,0,1,0,34,30,37
+5,20,6,1,1,Shetland Sheepdog,13.3,90,0.83,0.83,0.5,0.75,0.25,0.75,1,1,1,1,90,21,85
+6,60,6,0,0,Siberian Husky,12,33,0.83,0.67,1,1,0.5,0.5,1,1,1,1,25,20,63
+7,60,1,1,1,Vizsla,12.5,15,0.67,0.67,1,0,0.5,1,0,1,0,1,27,35,80
+8,20,3.5,0,1,Pug,13,67,1,0.5,0.17,0.75,0.75,0.75,1,0,1,1,35,27,46
+9,50,2,1,0,Boxer,10.4,61,0.67,1,0.67,1,0.5,1,1,1,1,1,56,40,20
+10,70,5,1,1,Siberian Husky,13.3,48,0.17,0.83,0.33,0.75,0.5,1,0,1,0,0,10,90,33
+"*female = 0, male = 1",,,,,,,,,,,,,,,,,,,,
+"†spayed/neutered = 1, intact = 0",,,,,,,,,,,,,,,,,,,,

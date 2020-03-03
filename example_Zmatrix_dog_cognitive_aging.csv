@@ -1,0 +1,11 @@
+﻿Shih_Tzu,Labrador_Retriever,Golden_Retriever,Dalmatian,Shetland_Sheepdog,Siberian_Husky,Vizsla,Pug,Boxer
+1,0,0,0,0,0,0,0,0
+0,1,0,0,0,0,0,0,0
+0,0,1,0,0,0,0,0,0
+0,0,0,1,0,0,0,0,0
+0,0,0,0,1,0,0,0,0
+0,0,0,0,0,1,0,0,0
+0,0,0,0,0,0,1,0,0
+0,0,0,0,0,0,0,1,0
+0,0,0,0,0,0,0,0,1
+0,0,0,0,0,1,0,0,0
