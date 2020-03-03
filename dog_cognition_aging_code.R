@@ -3,6 +3,8 @@ library(PQLseq)
 library(psych)
 library(EMMREML)
 
+
+
 #     Load data ---------------
 # Download and load the following files from the Github page mwatowich/Dog-cognition-across-aging
 
@@ -23,7 +25,7 @@ rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
 
 
-#      Model binomial cognitive abilities with PQLseq package ---------------
+#      Model binomial cognitive tasks with PQLseq package ---------------
 
 # Make Genetic relatedness matrix
 GRM = Zmatrix%*%IBD%*%t(Zmatrix)
@@ -59,7 +61,7 @@ out <- pqlseq(RawCountDataSet = t(success.counts),
 
 
 
-#      Generate files to model delay of gratification (or eye contact) ---------------
+#      Model delay of gratification (or eye contact) with EMMREML ---------------
 dog_delay_grat <- dog_scores %>% select(`delay.gratification.watching(s)`, `delay.gratification.eyes.closed(s)`, `delay.gratification.turn.back(s)`) # select only the delay of gratification tasks 
 
 # Principal Component Analysis
