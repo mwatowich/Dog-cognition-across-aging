@@ -12,18 +12,22 @@ library(EMMREML)
 # Download the toy IBD matrix, Z matrix, and data from the Github page mwatowich/Dog-cognition-across-aging/scripts.
 
 # Load cognitive and demographic data
-dog_scores <- read_csv(file = "example_data_dog_cognitive_aging.csv", col_names = T, n_max = 10) %>% 
+dog_scores <- read_csv(file = "example_data_dog_cognitive_aging.csv", 
+                       col_names = T, n_max = 10) %>% 
   rename(sex = `sex*`) %>% 
   rename(reproductive.alteration = `reproductive.alteration†`) %>% 
   as.data.frame()
 
 # Load identity by decent matrix
-IBD <- read_delim(file = "example_IBDmatrix_dog_cognitive_aging.txt", delim = "\t", col_names = T) %>% 
+IBD <- read_delim(file = "example_IBDmatrix_dog_cognitive_aging.txt", 
+                  delim = "\t", 
+                  col_names = T) %>% 
   column_to_rownames("X1") %>% 
   as.matrix()
 
 # Load Zmatrix
-Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv", col_names = T))
+Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv", 
+                              col_names = T))
 rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
 
@@ -35,16 +39,23 @@ GRM = Zmatrix%*%IBD%*%t(Zmatrix)
 diag(GRM)=1 #set relatedness of the individual to 1
 
 # Success counts
-success.counts <- as.data.frame(matrix(nrow = length(dog_scores$arm.pointing), ncol = 1, data= as.numeric(dog_scores$arm.pointing)))
+success.counts <- as.data.frame(matrix(nrow = length(dog_scores$arm.pointing), 
+                                       ncol = 1, 
+                                       data= as.numeric(dog_scores$arm.pointing)))
 colnames(success.counts) <- 'success.counts'
 
 # Total read counts
-total.counts <- as.data.frame(rbind(matrix(nrow = length(dog_scores$arm.pointing), ncol = 1, data= rep(as.integer(6)))))
+total.counts <- as.data.frame(rbind(matrix(nrow = length(dog_scores$arm.pointing), 
+                                           ncol = 1, 
+                                           data= rep(as.integer(6)))))
 colnames(total.counts) <- 'total.counts'
 
 # Covariates file
 covariates <- dog_scores %>% 
-  select(sex, reproductive.alteration, mean.breed.lifespan, age) #select model covariates 
+  select(sex, 
+         reproductive.alteration, 
+         mean.breed.lifespan, 
+         age) #select model covariates 
 
 # Model matrix
 mat_coeffs <- model.matrix(~ sex + 
@@ -65,7 +76,10 @@ out <- pqlseq(RawCountDataSet = t(success.counts),
 
 
 #      Model delay of gratification (or eye contact) with EMMREML ---------------
-dog_delay_grat <- dog_scores %>% select(`delay.gratification.watching(s)`, `delay.gratification.eyes.closed(s)`, `delay.gratification.turn.back(s)`) # select only the delay of gratification tasks 
+dog_delay_grat <- dog_scores %>% 
+select(`delay.gratification.watching(s)`, 
+       `delay.gratification.eyes.closed(s)`, 
+       `delay.gratification.turn.back(s)`) # select only the delay of gratification tasks 
 
 # Principal Component Analysis
 dogs_pca <- prcomp(dog_delay_grat, center = T, scale = T) # run PCA
