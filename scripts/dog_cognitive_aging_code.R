@@ -1,3 +1,6 @@
+#!/usr/bin/env Rscript
+
+#     Load libraries
 library(tidyverse)
 library(PQLseq)
 library(psych)
@@ -6,20 +9,20 @@ library(EMMREML)
 
 
 #     Load data ---------------
-# Download and load the following files from the Github page mwatowich/Dog-cognition-across-aging
+# Download the toy IBD matrix, Z matrix, and data from the Github page mwatowich/Dog-cognition-across-aging/scripts.
 
-# load cognitive and demographic data
+# Load cognitive and demographic data
 dog_scores <- read_csv(file = "example_data_dog_cognitive_aging.csv", col_names = T, n_max = 10) %>% 
   rename(sex = `sex*`) %>% 
   rename(reproductive.alteration = `reproductive.alteration†`) %>% 
   as.data.frame()
 
-# load identity by decent matrix
+# Load identity by decent matrix
 IBD <- read_delim(file = "example_IBDmatrix_dog_cognitive_aging.txt", delim = "\t", col_names = T) %>% 
   column_to_rownames("X1") %>% 
   as.matrix()
 
-# load Zmatrix
+# Load Zmatrix
 Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv", col_names = T))
 rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
@@ -27,7 +30,7 @@ rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
 #      Model binomial cognitive tasks with PQLseq package ---------------
 
-# Make Genetic relatedness matrix
+# Genetic relatedness matrix
 GRM = Zmatrix%*%IBD%*%t(Zmatrix)
 diag(GRM)=1 #set relatedness of the individual to 1
 
@@ -50,7 +53,7 @@ mat_coeffs <- model.matrix(~ sex +
                              poly(scale(age),2), 
                            data= covariates)
 
-# Model binomial cognitive abilities 
+# Model binomial cognitive performance 
 out <- pqlseq(RawCountDataSet = t(success.counts), 
               Phenotypes = mat_coeffs[,2], 
               Covariates =  mat_coeffs[,-2], 
