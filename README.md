@@ -2,6 +2,7 @@
 
 This repository contains code written for the currently unpublished comparisons of trajectories of domestic dog cognitive performance across aging in the manuscript "Age influences domestic dog cognitive performance independent of average breed lifespan." Citation information will be updated shortly. 
 
+Authors: Marina M. Watowich, Evan L. MacLean, Brian Hare, Josep Call, Juliane Kaminski, Ádám Miklósi, Noah Snyder-Mackler
 
 ## Statistical analyses
 Please first download the example data (Zmatrix, IBD matrix, and toy data). 
