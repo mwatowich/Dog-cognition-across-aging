@@ -13,5 +13,5 @@ scripts/example_data_dog_cognitive_aging.csv
 
 Then download and run the R script. 
 ```{r}
-scripts/dog_cognition_aging_code.R
+scripts/dog_cognitive_aging_code.R
 ```
