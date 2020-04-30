@@ -8,7 +8,7 @@ Authors: Marina M. Watowich, Evan L. MacLean, Brian Hare, Josep Call, Juliane Ka
 Please first download the example data (Zmatrix, IBD matrix, and toy data). 
 ```{r}
 scripts/example_IBDmatrix_dog_cognitive_aging.txt
-scripts/example_IBDmatrix_dog_cognitive_aging.txt
+scripts/example_Zmatrix_dog_cognitive_aging.txt
 scripts/example_data_dog_cognitive_aging.csv
 ```
 
