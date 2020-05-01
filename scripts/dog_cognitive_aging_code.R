@@ -11,19 +11,19 @@ library(EMMREML)
 # Download the example IBD matrix, Z matrix, and data from the Github page mwatowich/Dog-cognition-across-aging 
 
 # Load cognitive and demographic data
-dog_scores <- read_csv(file = "~/Downloads/Dog-cognition-across-aging-master/scripts/example_data_dog_cognitive_aging.csv", 
+dog_scores <- read_csv(file = "example_data_dog_cognitive_aging.csv", 
                        col_names = T, n_max = 10) %>% as.data.frame()
 colnames(dog_scores)[c(4,5)] <- c("sex", "reproductive.alteration")
 
 # Load identity by decent matrix
-IBD <- read_delim(file = "~/Downloads/Dog-cognition-across-aging-master/scripts/example_IBDmatrix_dog_cognitive_aging.txt", 
+IBD <- read_delim(file = "example_IBDmatrix_dog_cognitive_aging.txt", 
                   delim = "\t", 
                   col_names = T) %>% 
   column_to_rownames("X1") %>% 
   as.matrix()
 
 # Load Zmatrix
-Zmatrix <- as.matrix(read_csv("~/Downloads/Dog-cognition-across-aging-master/scripts/example_Zmatrix_dog_cognitive_aging.csv", 
+Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv", 
                               col_names = T))
 rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
