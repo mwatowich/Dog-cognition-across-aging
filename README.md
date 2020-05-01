@@ -1,6 +1,6 @@
 # Dog cognitive performance throughout aging
 
-This repository contains code written for the currently unpublished comparisons of trajectories of domestic dog cognitive performance across aging in the manuscript "Age influences domestic dog cognitive performance independent of average breed lifespan." 
+This repository contains code written for the comparisons of trajectories of domestic dog cognitive performance across aging in the manuscript "Age influences domestic dog cognitive performance independent of average breed lifespan." 
 
 To cite this work:
 Watowich, M.M., MacLean, E.L., Hare, B. et al. Age influences domestic dog cognitive performance independent of average breed lifespan. Anim Cogn (2020). https://doi.org/10.1007/s10071-020-01385-0
