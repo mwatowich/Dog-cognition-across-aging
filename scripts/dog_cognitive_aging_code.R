@@ -7,7 +7,6 @@ library(psych)
 library(EMMREML)
 
 
-
 #     Load data ---------------
 # Download the toy IBD matrix, Z matrix, and data from the Github page mwatowich/Dog-cognition-across-aging/scripts.
 
@@ -31,24 +30,22 @@ Zmatrix <- as.matrix(read_csv("example_Zmatrix_dog_cognitive_aging.csv",
 rownames(Zmatrix) <- seq(1:nrow(Zmatrix))
 
 
-
 #      Model binomial cognitive tasks with PQLseq package ---------------
-
 # Genetic relatedness matrix
-GRM = Zmatrix%*%IBD%*%t(Zmatrix)
-diag(GRM)=1 #set relatedness of the individual to 1
+GRM = Zmatrix%*%IBD%*%t(Zmatrix) # multiply Zmatrix and IBD matrices to create genetic relatedness matrix
+diag(GRM)=1 # set relatedness of the individual to 1
 
 # Success counts
 success.counts <- as.data.frame(matrix(nrow = length(dog_scores$arm.pointing), 
                                        ncol = 1, 
                                        data= as.numeric(dog_scores$arm.pointing)))
-colnames(success.counts) <- 'success.counts'
+colnames(success.counts) <- c('success.counts') # change column names 
 
 # Total read counts
 total.counts <- as.data.frame(rbind(matrix(nrow = length(dog_scores$arm.pointing), 
                                            ncol = 1, 
                                            data= rep(as.integer(6)))))
-colnames(total.counts) <- 'total.counts'
+colnames(total.counts) <- c('total.counts') # change column names 
 
 # Covariates file
 covariates <- dog_scores %>% 
@@ -65,21 +62,23 @@ mat_coeffs <- model.matrix(~ sex +
                            data= covariates)
 
 # Model binomial cognitive performance 
+# This shows the set-up for using PQLseq to run a binimial mixed model with the relatedness matrix 
+# Please note that model with toy data will not converge 
 out <- pqlseq(RawCountDataSet = t(success.counts), 
               Phenotypes = mat_coeffs[,2], 
               Covariates =  mat_coeffs[,-2], 
               RelatednessMatrix = GRM, 
               LibSize = t(total.counts), 
               fit.model = 'BMM', 
-              fit.method = 'REML') # this shows the set-up for using PQLseq to run a binimial mixed model with the relatedness matrix. Please note that model with toy data will not converge
-
+              fit.method = 'REML') 
 
 
 #      Model delay of gratification (or eye contact) with EMMREML ---------------
+# Select only the delay of gratification tasks 
 dog_delay_grat <- dog_scores %>% 
 select(`delay.gratification.watching(s)`, 
        `delay.gratification.eyes.closed(s)`, 
-       `delay.gratification.turn.back(s)`) # select only the delay of gratification tasks 
+       `delay.gratification.turn.back(s)`) 
 
 # Principal Component Analysis
 dogs_pca <- prcomp(dog_delay_grat, center = T, scale = T) # run PCA
